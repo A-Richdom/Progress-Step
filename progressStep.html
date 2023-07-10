@@ -20,19 +20,68 @@
         border: 5px solid #0d6efd;
         /* background-color: #0d6efd; */
     }
-   
+    /* root {
+  --line-border-fill: #3498db;
+  --line-border-empty: #e0e0e0;
+  --line-border-empty: #383838;
+
+} */
 </style>
 <body>
 
-    <section class="progress-container d-flex justify-content-around">
+    <section class="progress-container container col-md-6 d-flex justify-content-around">
         <div class="progress-step active">1</div>
         <div class="progress-step">2</div>
         <div class="progress-step">3</div>
         <div class="progress-step">4</div>
+
+        <div>
+            <button id="prev-button">Previous</button>
+            <button id="next-button">Next</button>
+        </div>
     </section>
     
 </body>
 <script>
+    const progressSteps = document.querySelectorAll('.progress-step');
+
+    progressSteps.forEach((step, index) => {
+        step.addEventListener('click', () => {
+            updateProgress(index);
+        });
+    });
+
+    function updateProgress(activeIndex) {
+        progressSteps.forEach((step, index) => {
+            if (index === activeIndex) {
+            step.classList.add('active');
+            } 
+            else {
+            step.classList.remove('active');
+            }
+        });
+    }
+
+    //PROGRESS-STEP BUTTONS//
+    const nextButton = document.getElementById('next-button');
+    const prevButton = document.getElementById('prev-button');
+
+    let currentStep = 0;
+
+    nextButton.addEventListener('click', function() {
+        if (currentStep < progressSteps.length - 1) {
+        currentStep++;
+        updateProgress(currentStep);
+        }
+    });
+
+    prevButton.addEventListener('click', function() {
+        if (currentStep > 0) {
+        currentStep--;
+        updateProgress(currentStep);
+        }
+    });
+
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
